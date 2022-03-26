@@ -13,8 +13,10 @@ if [ -e "${ZIP_FILE_NAME}" ]; then
     exit;
 fi
 
-cp ${SAMPLE_ENV_FILE_PATH} ${ENV_FILE_PATH}
-cp ${SAMPLE_PHPDB_FILE_PATH} ${PHPDB_FILE_PATH}
+if [ ! -e "${ENV_FILE_PATH}" ]; then
+    cp ${SAMPLE_ENV_FILE_PATH} ${ENV_FILE_PATH}
+    cp ${SAMPLE_PHPDB_FILE_PATH} ${PHPDB_FILE_PATH}
+fi
 
 PASSWORD=`pwmake --help`
 
