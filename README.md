@@ -1,1 +1,1 @@
-# codegym-php-challenge
+# codegym-app-security-challenge
