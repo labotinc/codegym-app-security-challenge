@@ -11,6 +11,8 @@ if (empty($_SESSION['user_id'])) {
 require_once('db.php');
 require_once('functions.php');
 
+$user_id = $_SESSION['user_id'];
+
 /**
  * @param String $tweet_textarea
  * つぶやき投稿を行う。
@@ -41,8 +43,6 @@ if ($_POST) { /* POST Requests */
 
 $tweets = getTweets();
 $tweet_count = count($tweets);
-/* 返信課題はここからのコードを修正しましょう。 */
-/* 返信課題はここからのコードを修正しましょう。 */
 ?>
 
 <!DOCTYPE html>
@@ -56,9 +56,7 @@ $tweet_count = count($tweets);
     <div class="card mb-3">
       <div class="card-body">
         <form method="POST">
-          <textarea class="form-control" type=textarea name="tweet_textarea" ?><!-- 返信課題はここを修正しましょう。 --></textarea>
-          <!-- 返信課題はここからのコードを修正しましょう。 -->
-          <!-- 返信課題はここからのコードを修正しましょう。 -->
+          <textarea class="form-control" type=textarea name="tweet_textarea" ?></textarea>
           <br>
           <input class="btn btn-primary" type=submit value="投稿">
         </form>
@@ -68,20 +66,23 @@ $tweet_count = count($tweets);
     <?php foreach ($tweets as $t) { ?>
       <div class="card mb-3">
         <div class="card-body">
-          <p class="card-title"><b><?= "{$t['id']}" ?></b> <?= "{$t['name']}" ?> <small><?= "{$t['updated_at']}" ?></small></p>
+          <?php $profile_url = "user/index.php?user_id=" . $t['user_id']; ?>
+          <p class="card-title"><b><?= "{$t['id']}" ?></b> <a href=<?= "{$profile_url}" ?>><?= "{$t['name']}" ?></a> <small><?= "{$t['updated_at']}" ?></small></p>
           <p class="card-text"><?= "{$t['text']}" ?></p>
-          <!--返信課題はここから修正しましょう。-->
-          <!--<p>[返信する] [返信元のメッセージ]</p>-->
-          <!--返信課題はここまで修正しましょう。-->
         </div>
       </div>
     <?php } ?>
+    
+    <form method="GET" action='user/edit.php' style="margin-bottom:1em">
+      <input type="hidden" name='user_id' value=<?= "{$user_id}" ?>>
+      <button class="btn btn-primary">ユーザー情報変更</button>
+    </form>
+    
     <form method="POST">
       <input type="hidden" name="logout" value="dummy">
       <button class="btn btn-primary">ログアウト</button>
     </form>
-    <br>
+
   </div>
 </body>
-
 </html>

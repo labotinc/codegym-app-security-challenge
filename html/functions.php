@@ -63,7 +63,42 @@ function getTweets()
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-/* 返信課題はここからのコードを修正しましょう。 */
+/**
+ * @param string $id ユーザーID
+ * @return PDOStatement ユーザー情報の連想配列を格納したPDOStatement
+ * 名前を元にユーザー情報を取得します。
+ */
+function getUserById($id)
+{
+    $sql = 'select * from users where id = ';
+    $sql .= $id;    //user_idで検索する
+    $stmt = getPdo()->prepare($sql);
+    $stmt->execute();
+    if ($stmt === false) {
+        return false;
+    }
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (count($users) === 0){
+        return false;
+    }
+    return $users[0];
+}
 
-
-/* 返信課題はここからのコードを修正しましょう。 */
+/**
+ * @param int $id ユーザーID
+ * @param string $name ユーザー名
+ * @param string $profile プロフィール
+ * ユーザー情報の更新を行います。
+ */
+function updateUserById($id, $name, $profile) {
+    $sql = "";
+    $sql .= "update users ";
+    $sql .= "set ";
+    $sql .= "id = " . $id . ", ";
+    $sql .= "name = '" . $name . "', ";
+    $sql .= "profile = '" . $profile . "' ";
+    $sql .= "where id = " . $id . " ";
+    $sql .= ";";
+    $stmt = getPdo()->prepare($sql);
+    return $stmt->execute();
+}
