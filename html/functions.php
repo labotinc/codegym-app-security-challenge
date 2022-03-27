@@ -97,8 +97,7 @@ function updateUserById($id, $name, $profile) {
     $sql .= "id = " . $id . ", ";
     $sql .= "name = '" . $name . "', ";
     $sql .= "profile = '" . $profile . "' ";
-    $sql .= "where id = " . $id . " ";
-    $sql .= ";";
+    $sql .= "where id = " . $id;
     $stmt = getPdo()->prepare($sql);
     return $stmt->execute();
 }
