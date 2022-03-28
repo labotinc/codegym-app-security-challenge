@@ -77,7 +77,11 @@ $tweet_count = count($tweets);
       <input type="hidden" name='user_id' value=<?= "{$user_id}" ?>>
       <button class="btn btn-primary">ユーザー情報変更</button>
     </form>
-    
+
+    <form method="GET" action='user/list.php' style="margin-bottom:1em">
+      <button class="btn btn-primary">ユーザー一覧</button>
+    </form>
+
     <form method="POST">
       <input type="hidden" name="logout" value="dummy">
       <button class="btn btn-primary">ログアウト</button>

@@ -101,3 +101,32 @@ function updateUserById($id, $name, $profile) {
     $stmt = getPdo()->prepare($sql);
     return $stmt->execute();
 }
+
+/**
+ * @return PDOStatement ユーザー情報の連想配列を格納したPDOStatement
+ * ユーザーの一覧を取得します。
+ */
+function getUsers()
+{
+    $sql = "";
+    $sql .= 'select * ';
+    $sql .= 'from users ';
+    $stmt = getPdo()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
+ * @return PDOStatement ユーザー情報の連想配列を格納したPDOStatement
+ * ユーザーの一覧を取得します。
+ */
+function getUsersById($user_id)
+{
+    $sql = "";
+    $sql .= 'select * ';
+    $sql .= 'from users ';
+    $sql .= 'where id = ' . $user_id;
+    $stmt = getPdo()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
